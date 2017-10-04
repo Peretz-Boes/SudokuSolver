@@ -7,28 +7,32 @@ namespace SudokuSolver
 {
     class SudokuBoardStateManager
     {
-        public string GenerateState(int[,] sudokuBoard) {
+        public string GenerateState(int[,] sudokuBoard)
+        {
             StringBuilder key = new StringBuilder();
+
             for (int row = 0; row < sudokuBoard.GetLength(0); row++)
             {
-                for (int column = 0; column < sudokuBoard.GetLength(0); column++)
+                for (int col = 0; col < sudokuBoard.GetLength(1); col++)
                 {
-                    key.Append(sudokuBoard[row, column]);
+                    key.Append(sudokuBoard[row, col]);
                 }
             }
+
             return key.ToString();
         }
 
-        public bool isSolved(int[,] sudokuBoard) {
+        public bool IsSolved(int[,] sudokuBoard)
+        {
             for (int row = 0; row < sudokuBoard.GetLength(0); row++)
             {
-                for (int column = 0; column < sudokuBoard.GetLength(0); column++)
+                for (int col = 0; col < sudokuBoard.GetLength(1); col++)
                 {
-                    if (sudokuBoard[row, column] == 0 || sudokuBoard[row, column].ToString().Length > 1) {
+                    if (sudokuBoard[row, col] == 0 || sudokuBoard[row, col].ToString().Length > 1)
+                    {
                         return false;
                     }
                 }
-                
             }
             return true;
         }

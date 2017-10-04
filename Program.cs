@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SudokuSolver
 {
@@ -16,17 +17,23 @@ namespace SudokuSolver
                 SudokuSolverEngine sudokuSolverEngine = new SudokuSolverEngine(sudokuBoardStateManager, sudokuMapper);
                 SudokuFileReader sudokuFileReader = new SudokuFileReader();
                 SudokuBoardDisplayer sudokuBoardDisplayer = new SudokuBoardDisplayer();
-                Console.WriteLine("Enter the name of the file with the Sudoku puzzle.");
-                string filename = Console.ReadLine();
-                int[,] sudokuBoard = sudokuFileReader.ReadFile(filename);
-                sudokuBoardDisplayer.Display("Initial state:", sudokuBoard);
+
+                Console.WriteLine("Please enter the filename containing the Sudoku Puzzle:");
+                var filename = Console.ReadLine();
+
+                var sudokuBoard = sudokuFileReader.ReadFile(filename);
+                sudokuBoardDisplayer.Display("Initial State", sudokuBoard);
+
                 bool isSudokuSolved = sudokuSolverEngine.Solve(sudokuBoard);
-                sudokuBoardDisplayer.Display("Final state", sudokuBoard);
-                Console.WriteLine(isSudokuSolved ? "You have successfully solved this Sudoku puzzle" : "Unfortunately current algorithm(s) were not enough to solve the current Sudoku puzzle.");
+                sudokuBoardDisplayer.Display("Final State", sudokuBoard);
+
+                Console.WriteLine(isSudokuSolved
+                    ? "You have successfully solved this Sudoku Puzzle"
+                    : "Unfortunatley, current algorithm(s) were not enough to solve the current Sudoku Puzzle");
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error solving the Sudoku puzzle " + exception.Message);
+                Console.WriteLine("{0} : {1}", "Sudoku Puzzle cannot be solved because there was an error:", ex.Message);
             }
             Console.ReadLine();
         }
